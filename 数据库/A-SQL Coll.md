@@ -114,46 +114,35 @@ pg_restore --host 127.0.0.1 --port 5432 --username "postgres" --dbname "stdss" -
 ```shell
 一、备份
 1.切换到postgres用户
-
 $ sudo su - postgres
-1
+
 2.根据需求不同，选取不同的备份方式
 (1).备份数据库（包含创建数据库）
-
 $ pg_dump -C db_name > db_bak.sql
-1
+
 (2).备份数据库内容（不包含创建数据库）
-
 $ pg_dump db_name > db_content_bak.sql
-1
+
 (3).备份schema（命名空间/模式）和数据（包含创建schema）
-
 $ pg_dump -n "schema_name" db_name > schema_bak.sql
-1
+
 (4).备份表和数据（包含建表）
-
 $ pg_dump -t "schema_name.table_name" db_name > table_bak.sql
-1
-(5).备份表内数据（不包建表语句）
 
+(5).备份表内数据（不包建表语句）
 $ pg_dump -a -t "schema_name.table_name" db_name > table_content_bak.sql
-1
+
 二、恢复
 1.切换到postgres用户
-
 $ sudo su - postgres
-1
+
 2.恢复数据
 (1).恢复数据库及其内容（数据库不存在）
-
 $ psql -e < db_bak.sql
-1
 (2).恢复数据库内容（数据库必须已存在，且库中不存在备份文件中将要的创建的对象）
-
 psql -e db_name < bak.sql
-1
-3.免去交互输入密码
 
+3.免去交互输入密码
 PGPASSWORD=123456 psql -U username -e db_name < bak.sql
 ```
 
